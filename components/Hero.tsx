@@ -25,7 +25,7 @@ void main(){
  vec3 silver=vec3(.75,.77,.83),violet=vec3(.59,.48,.82),amber=vec3(.77,.49,.21),teal=vec3(.23,.68,.65);
  vColor=aSeed.z<.66?silver:aSeed.z<.81?violet:aSeed.z<.93?amber:teal;
  vLight=.25+max(0.,dot(normal,normalize(vec3(-.4,.7,1.))))*.9+max(0.,dot(normal,normalize(vec3(.8,-.3,-.8))))*.16+pressure*.2;
- vFade=1.-dissolve*.5;
+ vFade=(1.-dissolve*.5)*mix(1.,smoothstep(-.5,.3,p.x),pan*.9);
 }`;
 const fragment=`precision mediump float;varying mediump vec3 vColor;varying mediump float vLight,vFade;void main(){gl_FragColor=vec4(vColor*vLight,vFade);}`;
 export default function Hero(){
