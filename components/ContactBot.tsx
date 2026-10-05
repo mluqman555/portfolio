@@ -1,0 +1,5 @@
+'use client';
+import Link from 'next/link';
+import {useEffect,useRef} from 'react';
+export function Bot(){return <div className="bot" aria-hidden="true"><div className="bot-antenna"/><div className="bot-head"><div className="bot-face"><i/><i/></div></div><div className="bot-body"><span>&lt;/&gt;</span></div><div className="bot-arm bot-left"/><div className="bot-arm bot-right"/><div className="bot-shadow"/></div>}
+export default function ContactBot(){const board=useRef<HTMLAnchorElement>(null);useEffect(()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;let previous=scrollY,frame=0;const scroll=()=>{if(frame)return;frame=requestAnimationFrame(()=>{const delta=scrollY-previous;previous=scrollY;board.current?.style.setProperty('--travel',`${Math.max(-35,Math.min(35,delta*.45))}px`);frame=0})};addEventListener('scroll',scroll,{passive:true});return()=>{removeEventListener('scroll',scroll);cancelAnimationFrame(frame)}},[]);return <Link href="/contact" ref={board} className="contact-board" aria-label="Contact Us — start a project" data-cursor="connect();"><Bot/><span className="board-label">Contact Us <b>↗</b></span></Link>}
