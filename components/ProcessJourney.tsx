@@ -5,7 +5,7 @@ const steps=[
  {title:'Structure',copy:'Turn the idea into a clear architecture and release plan.',tag:'ARCHITECTURE',color:'#548fff'},
  {title:'Design',copy:'Build a visual system that is intuitive, distinctive and responsive.',tag:'INTERFACE',color:'#ff9a4a'},
  {title:'Engineer',copy:'Connect frontend, application logic, APIs and data.',tag:'BUILD / CONNECT',color:'#24ffbb'},
- {title:'Validate',copy:'Test real interactions, edge cases and performance.',tag:'TEST',color:'#ff526c'},
+ {title:'Validate',copy:'Test real interactions, edge cases and performance.',tag:'TEST',color:'#ffac67'},
  {title:'Launch',copy:'Deploy confidently and continue improving the product using real feedback.',tag:'DEPLOY / ITERATE',color:'#a8edff'},
 ];
 export default function ProcessJourney(){
