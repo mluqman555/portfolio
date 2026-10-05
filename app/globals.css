@@ -34,3 +34,5 @@
 @media(prefers-reduced-motion:reduce){.hero-motion-toggle{display:none}}
 
 .guide h2,.case-block h2{background:linear-gradient(170deg,#15293c 8%,#637782 24%,#142434 37%,#396858 52%,#245488 69%,#855833 88%);background-clip:text;-webkit-text-fill-color:transparent}
+
+.hero h1 .hero-last{white-space:nowrap}
