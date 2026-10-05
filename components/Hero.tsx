@@ -4,7 +4,7 @@ const vertex=`
 precision highp float;
 attribute vec3 aVertex; attribute vec3 aNormal; attribute vec3 aCore; attribute vec3 aNerve; attribute vec3 aScatter; attribute vec4 aSeed;
 uniform float uTime,uProgress,uAspect,uMobile; uniform vec2 uPointer; uniform float uInfluence;
-varying vec3 vColor; varying float vLight,vFade;
+varying mediump vec3 vColor; varying mediump float vLight,vFade;
 vec3 rotateY(vec3 p,float a){return vec3(p.x*cos(a)+p.z*sin(a),p.y,-p.x*sin(a)+p.z*cos(a));}
 vec3 rotateX(vec3 p,float a){return vec3(p.x,p.y*cos(a)-p.z*sin(a),p.y*sin(a)+p.z*cos(a));}
 void main(){
@@ -26,14 +26,14 @@ void main(){
  vLight=.25+max(0.,dot(normal,normalize(vec3(-.4,.7,1.))))*.9+max(0.,dot(normal,normalize(vec3(.8,-.3,-.8))))*.16+pressure*.2;
  vFade=1.-dissolve*.5;
 }`;
-const fragment=`precision mediump float;varying vec3 vColor;varying float vLight,vFade;void main(){gl_FragColor=vec4(vColor*vLight,vFade);}`;
+const fragment=`precision mediump float;varying mediump vec3 vColor;varying mediump float vLight,vFade;void main(){gl_FragColor=vec4(vColor*vLight,vFade);}`;
 export default function Hero(){
- const ref=useRef<HTMLCanvasElement>(null);const [failed,setFailed]=useState(false);
+ const ref=useRef<HTMLCanvasElement>(null);const [failed,setFailed]=useState('');
  useEffect(()=>{const canvas=ref.current;if(!canvas)return;const host=canvas.closest<HTMLElement>('.cinematic-hero');if(!host)return;
- const gl=canvas.getContext('webgl',{alpha:true,antialias:true,powerPreference:'low-power'});const inst=gl?.getExtension('ANGLE_instanced_arrays');if(!gl||!inst){setFailed(true);return}
+ const gl=canvas.getContext('webgl',{alpha:true,antialias:true,powerPreference:'low-power'});const inst=gl?.getExtension('ANGLE_instanced_arrays');if(!gl||!inst){setFailed(!gl?'WebGL unavailable':'Instancing unavailable');return}
  const buffers:WebGLBuffer[]=[],shaders:WebGLShader[]=[];const program=gl.createProgram()!;
- const shader=(type:number,source:string)=>{const s=gl.createShader(type)!;shaders.push(s);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error('Hero shader compilation failed');gl.attachShader(program,s)};
- try{shader(gl.VERTEX_SHADER,vertex);shader(gl.FRAGMENT_SHADER,fragment);gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error('Hero shader link failed')}catch{setFailed(true);shaders.forEach(s=>gl.deleteShader(s));gl.deleteProgram(program);return}
+ const shader=(type:number,source:string)=>{const s=gl.createShader(type)!;shaders.push(s);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s)||'Hero shader compilation failed');gl.attachShader(program,s)};
+ try{shader(gl.VERTEX_SHADER,vertex);shader(gl.FRAGMENT_SHADER,fragment);gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program)||'Hero shader link failed')}catch(error){setFailed(String(error));shaders.forEach(s=>gl.deleteShader(s));gl.deleteProgram(program);return}
  gl.useProgram(program);
  const attribute=(name:string,data:Float32Array,size:number,divisor:number)=>{const buffer=gl.createBuffer()!;buffers.push(buffer);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);const loc=gl.getAttribLocation(program,name);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,size,gl.FLOAT,false,0,0);inst.vertexAttribDivisorANGLE(loc,divisor)};
  const corners=[[0,1,0],[-.866,-.5,.5],[.866,-.5,.5],[0,-.5,-1]],faces=[[0,1,2],[0,2,3],[0,3,1],[1,3,2]],verts:number[]=[],norms:number[]=[];
@@ -51,8 +51,8 @@ export default function Hero(){
  const resize=()=>{const r=canvas.getBoundingClientRect();width=r.width;height=r.height;const dpr=Math.min(devicePixelRatio,mobile?1:1.5);canvas.width=width*dpr;canvas.height=height*dpr;gl.viewport(0,0,canvas.width,canvas.height);dirty=true};
  const move=(e:PointerEvent)=>{if(reduced.matches)return;const r=canvas.getBoundingClientRect();tx=(e.clientX-r.left-width/2)/height*3.8;ty=-(e.clientY-r.top-height/2)/height*3.8;targetInfluence=1;dirty=true};const leave=()=>{targetInfluence=0};
  const draw=(now:number)=>{if(visible&&!document.hidden&&(now-last>=32||dirty)){const dt=Math.min((now-last)/1000,.06)||.016;last=now;const paused=host.dataset.paused==='true';const canMove=!paused&&!reduced.matches;if(canMove)time+=dt;const damp=1-Math.exp(-dt*6);px+=(tx-px)*damp;py+=(ty-py)*damp;influence+=((canMove?targetInfluence:0)-influence)*damp;const target=reduced.matches?.28:parseFloat(host.dataset.sceneProgress||'0');progress+=(target-progress)*(1-Math.exp(-dt*8));if(canMove||dirty||Math.abs(target-progress)>.001){gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.uniform1f(uniforms.uTime,time);gl.uniform1f(uniforms.uProgress,progress);gl.uniform1f(uniforms.uAspect,width/height);gl.uniform1f(uniforms.uMobile,mobile?1:0);gl.uniform2f(uniforms.uPointer,px,py);gl.uniform1f(uniforms.uInfluence,influence);inst.drawArraysInstancedANGLE(gl.TRIANGLES,0,12,count);dirty=false;canvas.dataset.ready='true'}}frame=requestAnimationFrame(draw)};
- const ro=new ResizeObserver(resize);ro.observe(canvas);const io=new IntersectionObserver(([e])=>{visible=e.isIntersecting;dirty=true});io.observe(host);host.addEventListener('pointermove',move,{passive:true});host.addEventListener('pointerleave',leave);const lost=(e:Event)=>{e.preventDefault();setFailed(true)};canvas.addEventListener('webglcontextlost',lost);resize();frame=requestAnimationFrame(draw);
+ const ro=new ResizeObserver(resize);ro.observe(canvas);const io=new IntersectionObserver(([e])=>{visible=e.isIntersecting;dirty=true});io.observe(host);host.addEventListener('pointermove',move,{passive:true});host.addEventListener('pointerleave',leave);const lost=(e:Event)=>{e.preventDefault();setFailed('WebGL context lost')};canvas.addEventListener('webglcontextlost',lost);resize();frame=requestAnimationFrame(draw);
  return()=>{cancelAnimationFrame(frame);ro.disconnect();io.disconnect();host.removeEventListener('pointermove',move);host.removeEventListener('pointerleave',leave);canvas.removeEventListener('webglcontextlost',lost);buffers.forEach(b=>gl.deleteBuffer(b));shaders.forEach(s=>gl.deleteShader(s));gl.deleteProgram(program)};
  },[]);
- return failed?<div className="core-static-fallback" aria-hidden="true"><svg viewBox="0 0 600 500"><defs><linearGradient id="core-silver"><stop stopColor="#8e94b8"/><stop offset="1" stopColor="#c99557"/></linearGradient></defs>{Array.from({length:28},(_,i)=><path key={i} d={`M300 250 Q${50+i*16} ${40+i*8} ${75+i*16} ${90+i*12} T${150+i*11} ${400-i*8}`} fill="none" stroke="url(#core-silver)" strokeWidth="1"/>)}</svg></div>:<canvas ref={ref} className="hero-webgl-canvas" aria-hidden="true"/>;
+ return failed?<div className="core-static-fallback" data-reason={failed} aria-hidden="true"><svg viewBox="0 0 600 500"><defs><linearGradient id="core-silver"><stop stopColor="#8e94b8"/><stop offset="1" stopColor="#c99557"/></linearGradient></defs>{Array.from({length:28},(_,i)=><path key={i} d={`M300 250 Q${50+i*16} ${40+i*8} ${75+i*16} ${90+i*12} T${150+i*11} ${400-i*8}`} fill="none" stroke="url(#core-silver)" strokeWidth="1"/>)}</svg></div>:<canvas ref={ref} className="hero-webgl-canvas" aria-hidden="true"/>;
 }
