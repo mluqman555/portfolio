@@ -1,5 +1,6 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
+import HeroFallback from './HeroFallback';
 const vertex=`
 precision highp float;
 attribute vec3 aVertex; attribute vec3 aNormal; attribute vec3 aCore; attribute vec3 aNerve; attribute vec3 aScatter; attribute vec4 aSeed;
@@ -54,5 +55,5 @@ export default function Hero(){
  const ro=new ResizeObserver(resize);ro.observe(canvas);const io=new IntersectionObserver(([e])=>{visible=e.isIntersecting;dirty=true});io.observe(host);host.addEventListener('pointermove',move,{passive:true});host.addEventListener('pointerleave',leave);const lost=(e:Event)=>{e.preventDefault();setFailed('WebGL context lost')};canvas.addEventListener('webglcontextlost',lost);resize();frame=requestAnimationFrame(draw);
  return()=>{cancelAnimationFrame(frame);ro.disconnect();io.disconnect();host.removeEventListener('pointermove',move);host.removeEventListener('pointerleave',leave);canvas.removeEventListener('webglcontextlost',lost);buffers.forEach(b=>gl.deleteBuffer(b));shaders.forEach(s=>gl.deleteShader(s));gl.deleteProgram(program)};
  },[]);
- return failed?<div className="core-static-fallback" data-reason={failed} aria-hidden="true"><svg viewBox="0 0 600 500"><defs><linearGradient id="core-silver"><stop stopColor="#8e94b8"/><stop offset="1" stopColor="#c99557"/></linearGradient></defs>{Array.from({length:28},(_,i)=><path key={i} d={`M300 250 Q${50+i*16} ${40+i*8} ${75+i*16} ${90+i*12} T${150+i*11} ${400-i*8}`} fill="none" stroke="url(#core-silver)" strokeWidth="1"/>)}</svg></div>:<canvas ref={ref} className="hero-webgl-canvas" aria-hidden="true"/>;
+ return failed?<HeroFallback reason={failed}/>:<canvas ref={ref} className="hero-webgl-canvas" aria-hidden="true"/>;
 }
