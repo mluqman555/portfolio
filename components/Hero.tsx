@@ -1,7 +1,7 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
 import HeroFallback from './HeroFallback';
-import {brainParticles,portraitBounds} from './brainParticles';
+import {brainParticles} from './brainParticles';
 const vertex=`
 precision highp float;
 attribute vec3 aVertex; attribute vec3 aNormal; attribute vec3 aCore; attribute vec3 aNerve; attribute vec3 aScatter; attribute vec4 aSeed;
@@ -29,7 +29,7 @@ void main(){
  vLight=.3+.15*sin(uTime*1.3+aSeed.x*16.)*step(.72,aSeed.w)+max(0.,dot(normal,normalize(vec3(-.4,.7,1.))))*.9+max(0.,dot(normal,normalize(vec3(.8,-.3,-.8))))*.16+pressure*.2;
  vFade=(.72-dissolve*.3)*mix(1.,smoothstep(-.5,.3,p.x),pan*.9);
 }`;
-const fragment=`precision mediump float;varying mediump vec3 vColor;varying mediump float vLight,vFade;varying mediump vec2 vScreen;uniform vec4 uPortrait;void main(){if(vScreen.x>uPortrait.x&&vScreen.x<uPortrait.z&&vScreen.y>uPortrait.y&&vScreen.y<uPortrait.w)discard;gl_FragColor=vec4(vColor*vLight,vFade);}`;
+const fragment=`precision mediump float;varying mediump vec3 vColor;varying mediump float vLight,vFade;varying mediump vec2 vScreen;void main(){gl_FragColor=vec4(vColor*vLight,vFade);}`;
 export default function Hero(){
  const ref=useRef<HTMLCanvasElement>(null);const [failed,setFailed]=useState('');
  useEffect(()=>{const canvas=ref.current;if(!canvas)return;const host=canvas.closest<HTMLElement>('.cinematic-hero');if(!host)return;
@@ -44,11 +44,11 @@ export default function Hero(){
  attribute('aVertex',new Float32Array(verts),3,0);attribute('aNormal',new Float32Array(norms),3,0);
  const mobile=innerWidth<700;const count=mobile?950:innerWidth<1100?2100:3600;const {core,nerve,scatter,seeds}=brainParticles(count);
  attribute('aCore',core,3,1);attribute('aNerve',nerve,3,1);attribute('aScatter',scatter,3,1);attribute('aSeed',seeds,4,1);
- const uniforms=Object.fromEntries(['uTime','uProgress','uAspect','uMobile','uPointer','uInfluence','uPortrait'].map(name=>[name,gl.getUniformLocation(program,name)]));gl.enable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.clearColor(0,0,0,0);
+ const uniforms=Object.fromEntries(['uTime','uProgress','uAspect','uMobile','uPointer','uInfluence'].map(name=>[name,gl.getUniformLocation(program,name)]));gl.enable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.clearColor(0,0,0,0);
  let frame=0,last=0,time=0,visible=true,width=1,height=1;let px=0,py=0,tx=0,ty=0,influence=0,targetInfluence=0,progress=0,dirty=true;const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const resize=()=>{const r=canvas.getBoundingClientRect();width=r.width;height=r.height;const dpr=Math.min(devicePixelRatio,mobile?1:1.5);canvas.width=width*dpr;canvas.height=height*dpr;gl.viewport(0,0,canvas.width,canvas.height);dirty=true};
  const move=(e:PointerEvent)=>{if(reduced.matches)return;const r=canvas.getBoundingClientRect();tx=(e.clientX-r.left-width/2)/height*3.8;ty=-(e.clientY-r.top-height/2)/height*3.8;targetInfluence=1;dirty=true};const leave=()=>{targetInfluence=0};
- const draw=(now:number)=>{if(visible&&!document.hidden&&(now-last>=32||dirty)){const dt=Math.min((now-last)/1000,.06)||.016;last=now;const paused=host.dataset.paused==='true';const canMove=!paused&&!reduced.matches;if(canMove)time+=dt;const damp=1-Math.exp(-dt*6);px+=(tx-px)*damp;py+=(ty-py)*damp;influence+=((canMove?targetInfluence:0)-influence)*damp;const target=reduced.matches?.28:parseFloat(host.dataset.sceneProgress||'0');progress+=(target-progress)*(1-Math.exp(-dt*8));if(canMove||dirty||Math.abs(target-progress)>.001){gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.uniform1f(uniforms.uTime,time);gl.uniform1f(uniforms.uProgress,progress);gl.uniform1f(uniforms.uAspect,width/height);gl.uniform1f(uniforms.uMobile,mobile?1:0);gl.uniform2f(uniforms.uPointer,px,py);gl.uniform1f(uniforms.uInfluence,influence);const bounds=portraitBounds(host,canvas);if(bounds)gl.uniform4f(uniforms.uPortrait,bounds.left/width,1-bounds.bottom/height,bounds.right/width,1-bounds.top/height);else gl.uniform4f(uniforms.uPortrait,-1,-1,-1,-1);inst.drawArraysInstancedANGLE(gl.TRIANGLES,0,12,count);dirty=false;canvas.dataset.ready='true'}}frame=requestAnimationFrame(draw)};
+ const draw=(now:number)=>{if(visible&&!document.hidden&&(now-last>=32||dirty)){const dt=Math.min((now-last)/1000,.06)||.016;last=now;const paused=host.dataset.paused==='true';const canMove=!paused&&!reduced.matches;if(canMove)time+=dt;const damp=1-Math.exp(-dt*6);px+=(tx-px)*damp;py+=(ty-py)*damp;influence+=((canMove?targetInfluence:0)-influence)*damp;const target=reduced.matches?.28:parseFloat(host.dataset.sceneProgress||'0');progress+=(target-progress)*(1-Math.exp(-dt*8));if(canMove||dirty||Math.abs(target-progress)>.001){gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.uniform1f(uniforms.uTime,time);gl.uniform1f(uniforms.uProgress,progress);gl.uniform1f(uniforms.uAspect,width/height);gl.uniform1f(uniforms.uMobile,mobile?1:0);gl.uniform2f(uniforms.uPointer,px,py);gl.uniform1f(uniforms.uInfluence,influence);inst.drawArraysInstancedANGLE(gl.TRIANGLES,0,12,count);dirty=false;canvas.dataset.ready='true'}}frame=requestAnimationFrame(draw)};
  const ro=new ResizeObserver(resize);ro.observe(canvas);const io=new IntersectionObserver(([e])=>{visible=e.isIntersecting;dirty=true});io.observe(host);host.addEventListener('pointermove',move,{passive:true});host.addEventListener('pointerleave',leave);const lost=(e:Event)=>{e.preventDefault();setFailed('WebGL context lost')};canvas.addEventListener('webglcontextlost',lost);resize();frame=requestAnimationFrame(draw);
  return()=>{cancelAnimationFrame(frame);ro.disconnect();io.disconnect();host.removeEventListener('pointermove',move);host.removeEventListener('pointerleave',leave);canvas.removeEventListener('webglcontextlost',lost);buffers.forEach(b=>gl.deleteBuffer(b));shaders.forEach(s=>gl.deleteShader(s));gl.deleteProgram(program)};
  },[]);
