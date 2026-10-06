@@ -98,3 +98,62 @@ body .voice-dock button{display:flex;align-items:center;gap:10px;font:850 10px v
 @media(prefers-reduced-motion:reduce){.nav-signal-field i,.architecture-route i::after,.voice-dock svg{animation:none!important}.nav-control>span,.expanded-universe-stage,.architecture-node,.architecture-handoff{transition:none!important;transform:none!important}}
 
 .architecture-flow[data-motion-active=false] .architecture-route i::after{animation-play-state:paused}
+
+/* Readable capability directory, four-project desktop row and mobile flow. */
+body main .universe-catalog{padding:24px;border:1px solid #87bfff66;border-radius:12px;background:linear-gradient(125deg,#142447,#24203d 55%,#0d3233);box-shadow:0 0 24px #318cff15}
+body main .universe-catalog-title{margin:0 0 24px;font:900 clamp(17px,1.6vw,23px)/1.4 var(--font-mono);color:#fff!important;-webkit-text-fill-color:#fff!important}
+body main .universe-catalog-grid{padding:0;gap:18px}
+.capability-group{--group-color:#95caff;min-width:0;padding:20px 16px;border:1px solid color-mix(in srgb,var(--group-color) 55%,transparent);border-radius:9px;background:color-mix(in srgb,var(--group-color) 8%,#0b152b);box-shadow:inset 0 3px var(--group-color)}
+.capability-group-1{--group-color:#7effcf}.capability-group-2{--group-color:#d2aaff}.capability-group-3{--group-color:#a5e6ff}
+body main .universe-catalog-grid h3{font-size:19px;color:var(--group-color)!important;-webkit-text-fill-color:var(--group-color)!important;font-weight:900;line-height:1.35}
+body main .universe-catalog-grid button{background:color-mix(in srgb,var(--group-color) 12%,#121c30) padding-box,linear-gradient(135deg,var(--group-color),#ffffff22) border-box!important;color:#fff!important;-webkit-text-fill-color:#fff!important;border-radius:6px;font-size:13px;font-weight:800;min-height:42px}
+body main .universe-catalog-grid button[aria-pressed=true]{outline:2px solid var(--group-color);outline-offset:2px}
+body main .project-vault .vault-grid{max-width:1400px;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 18px;padding:4px 0 20px}
+body main .project-vault .vault-slot:last-child:nth-child(3n+1){grid-column:auto}
+body main .project-vault .vault-content{padding:20px 17px}
+body main .project-vault .vault-card .vault-content h3{font-size:clamp(23px,1.9vw,29px);line-height:1.2;overflow-wrap:anywhere}
+body main .project-vault .vault-description{font-size:16px;line-height:1.65}
+body main .project-vault .vault-meta{flex-wrap:wrap;font-size:10px;gap:6px}
+body main .project-vault .vault-meta>span{max-width:none;text-align:left}
+body main .project-vault .vault-links{flex-wrap:wrap}
+body main .contact{background:radial-gradient(ellipse at 88% 15%,#2768a4aa,transparent 55%),radial-gradient(ellipse at 8% 85%,#277c7daa,transparent 60%),linear-gradient(130deg,#182d57,#322950 55%,#123c49)!important}
+body main .contact .contact-form{padding:28px;border:1px solid #b4e9ff88;border-radius:14px;background:linear-gradient(145deg,#28709133,#a891ff22);box-shadow:0 15px 40px #0003}
+body main .contact .contact-form label,body main .contact-form .form-field-title{color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:16px;font-weight:900;line-height:1.5}
+body main .contact-form :is(input,select,textarea){background:#fff!important;color:#101521!important;-webkit-text-fill-color:#101521!important;border:2px solid #b5d8ef!important;font-size:17px;font-weight:750;box-shadow:inset 0 1px 4px #10304b15;border-radius:7px}
+body main .contact-form :is(input,textarea)::placeholder{color:#526174!important;-webkit-text-fill-color:#526174!important;opacity:1}
+body main .contact-form option{background:#fff;color:#101521}
+body main .contact-form :is(input,select,textarea):focus{border-color:#73e6ff!important;outline:3px solid #73e6ff;outline-offset:3px}
+body main .contact :is(.field-help,.form-note,.contact-copy>p){color:#e9f5ff!important;font-weight:750}
+@media(max-width:1100px) and (min-width:801px){body main .project-vault .vault-grid{gap:20px 12px}body main .project-vault .vault-content{padding:18px 13px}body main .project-vault .vault-card .vault-content h3{font-size:23px}}
+@media(max-width:800px){
+ body main .cinematic-hero .hero-sequence-viewport{display:flex;flex-direction:column;align-items:stretch;height:auto!important;max-height:none;overflow:hidden;padding:26px 20px 30px}
+ body main .hero-sequence-topline{order:0;position:relative!important;inset:auto!important;width:100%;margin:0 0 18px;line-height:1.35;font-size:clamp(20px,5.5vw,28px)}
+ body main .hero-sequence-topline span:first-child{max-width:none}
+ body main .hero-sequence-content{order:1;position:relative;inset:auto!important;width:100%;min-width:0}
+ body main .identity-stage{order:2;flex:none;align-self:center;width:min(100%,340px);height:490px;margin:30px 0 8px;--strap-length:96px}
+ body main .identity-card{top:96px;width:min(280px,calc(100% - 36px));height:366px}
+ body main .identity-strap{width:34px;left:calc(50% - 17px)}
+ body main .identity-strap span{font-size:8px;letter-spacing:1px;margin:12px auto;max-height:70px;overflow:hidden}
+ body main .identity-inner img{height:180px}
+ body main .identity-info strong{font-size:20px}
+ body main .identity-orbit{width:290px;height:290px;top:115px}
+ body main .hero-sequence-baseline{order:3;width:100%;gap:12px;font-size:10px!important;flex-wrap:wrap}
+ body main .hero-sequence-scene{opacity:.15}
+ body main .hero-sequence-actions{flex-wrap:wrap;gap:12px}
+ body main .hero-sequence-actions .button{min-height:48px;font-size:12px;flex:1 1 160px;white-space:normal;justify-content:center}
+ body main .project-vault .vault-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:none;gap:24px 16px}
+ body main .project-vault .vault-card .vault-content h3{font-size:26px}
+ body main .contact .contact-form{padding:22px 18px}
+ body main .contact .contact-layout{grid-template-columns:minmax(0,1fr);gap:30px}
+ body main .contact .email-link{overflow-wrap:anywhere;word-break:break-word;font-size:clamp(18px,4.5vw,28px)}
+ body main .universe-catalog{padding:20px 15px}.capability-group{padding:18px 14px}
+ body main .universe-catalog-grid button{min-height:44px}
+}
+@media(max-width:540px){
+ body main .project-vault .vault-grid{grid-template-columns:minmax(0,1fr);max-width:470px}
+ body main .project-vault .vault-content{padding:23px}
+ body main .project-vault .vault-card .vault-content h3{font-size:30px}
+ body main .universe-catalog-grid{grid-template-columns:minmax(0,1fr)}
+ body main .architecture-layers{grid-template-columns:minmax(0,1fr)}
+ body main .contact .form-grid{grid-template-columns:minmax(0,1fr)}
+}
