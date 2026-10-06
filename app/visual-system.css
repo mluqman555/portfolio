@@ -52,3 +52,8 @@ body footer{background:var(--bg-primary);color:var(--text-body);border-color:var
 body .cursor-ring{border-color:var(--accent-cyan);box-shadow:0 0 12px var(--glow-blue)}body .cursor-ring span{background:var(--accent-green)}body .cursor-label{color:var(--accent-mint)}
 @media(max-width:800px){body .site-header .nav.open{background:var(--bg-primary);border-color:var(--border-subtle)}body main .hero-sequence-description{font-size:17px}body main .project-vault .energy-ribbon-halo{opacity:.5}body main .project-vault .energy-dust{filter:none}body main .section>.section-label :is(strong,span:nth-child(2)){font-size:26px}}
 @media(prefers-reduced-motion:reduce){body :is(.button,.nav-cta,.text-link,.social-links a,.board-label,.contact-mascot>span){transition:none!important}body :is(.button,.nav-cta,.text-link,.social-links a,.board-label,.contact-mascot>span):hover{transform:none!important}}
+
+/* Keep inherited legacy gradients off solid headings and page copy. */
+body main .forge-intro h2,body main .forge-stage h3{background:none!important;background-image:none!important;color:var(--text-primary)!important;-webkit-text-fill-color:var(--text-primary)!important}
+body main .process-solar{background:var(--bg-secondary)}
+body main :is(.guide p,.case-block p,.blog-body p){color:var(--text-body);font-weight:700}
