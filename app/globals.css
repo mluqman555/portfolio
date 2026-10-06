@@ -78,3 +78,110 @@ body{font-weight:700;--red:#ff9f51}main p{font-weight:750}.mono,.tags span,.proj
 @media(max-width:767px){.section>.section-label{gap:12px;margin-bottom:26px}.section>.section-label>span:nth-child(2),.section>.section-label>strong{font-size:26px}.section>.section-label .label-line{display:none}.section>.section-label .section-index{font-size:12px}.section-heading h2,.exhibition-work .section-heading h2,.services-fluid .section-heading h2,.universe-heading h2,.about h2,.journey-layout>h2,.contact-heading h2,.journey-intro h2{font-size:25px}.project-editorial h3{font-size:32px}.exhibition-meta strong{font-size:19px}.exhibition-meta>span{font-size:11px}.hero-sequence-topline{font-size:12px;letter-spacing:.5px}.hero-sequence-topline span:first-child{max-width:280px}.hero-sequence-identity .status{font-size:11px;letter-spacing:.7px}.hero-sequence-controls button,.hero-sequence-baseline{font-size:9px}.hero-sequence-actions .button{font-size:10px}.contact-form label{font-size:15px}.contact-form .button{font-size:14px}.contact-form input,.contact-form textarea,.contact-form select{font-size:16px}}
 
 .contact-form .form-field-title{background:linear-gradient(120deg,currentColor,#34745e 55%,#975325);background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}.contact-form label:nth-child(2n) .form-field-title{background-image:linear-gradient(120deg,#16583f,#36736a 55%,#22517e)}
+
+/* Emerald galaxy navigation, shared by every route. */
+.site-header,body:has(.cinematic-hero) .site-header{
+ background-color:#000; background-image:
+ radial-gradient(circle at 12% 24%,#d9fff1 0 1px,transparent 1.7px),
+ radial-gradient(circle at 33% 76%,#8dbdaa 0 .8px,transparent 1.5px),
+ radial-gradient(circle at 64% 19%,#e1efff 0 .9px,transparent 1.6px),
+ radial-gradient(circle at 88% 66%,#efffff 0 .7px,transparent 1.4px),
+ radial-gradient(ellipse at 62% 0%,#1a333d66,transparent 55%),
+ linear-gradient(116deg,#000 23%,#080e12 48%,#142126 52%,#070b0f 59%,#000 86%);
+ background-size:170px 100px,230px 110px,290px 130px,370px 105px,100% 100%,100% 100%;
+ border-bottom:1px solid #286b4d; box-shadow:0 1px 0 #62dfa222;color:#50ce95;
+}
+.site-header .brand,.site-header .brand-name,.site-header .nav>a,.site-header .menu-toggle,
+body:has(.cinematic-hero) .brand,body:has(.cinematic-hero) .brand-name,
+body:has(.cinematic-hero) .nav>a,body:has(.cinematic-hero) .menu-toggle{
+ color:#50ce95;font-weight:900;text-shadow:0 1px 0 #001e11,0 0 12px #26996533;
+}
+.site-header .brand-name{font-size:12px}.site-header .nav{font-size:18px;gap:25px}
+.site-header .brand-slash,body:has(.cinematic-hero) .brand-slash{color:#50ce95}
+.site-header .nav-cta,body:has(.cinematic-hero) .nav-cta{
+ font-size:15px;background:linear-gradient(125deg,#081d14,#102b21 48%,#06100c);border-color:#3c966b;box-shadow:inset 0 1px #8cddb333;
+}
+.site-header .nav-cta span,body:has(.cinematic-hero) .nav-cta span{color:#73dfab}
+.site-header .nav>a:hover,body:has(.cinematic-hero) .nav>a:hover{color:#a0f3c6}
+.site-header .nav-cta:hover,body:has(.cinematic-hero) .nav-cta:hover{background:#153a29}
+.site-header .nav.open,body:has(.cinematic-hero) .nav.open{background:linear-gradient(135deg,#000,#08120d);border-color:#286b4d}
+.site-header a:focus-visible,.site-header button:focus-visible{outline-color:#83efb8}
+
+/* Phone/tablet layout: readable flow instead of desktop scroll-pinned panels. */
+@media(max-width:800px){
+ html{scroll-padding-top:24px}body{font-size:17px}
+ .site-header{height:80px;padding:0 20px;gap:12px}.site-header .brand-name{font-size:11px}
+ .site-header .menu-toggle{font-size:15px;font-weight:900;min-height:44px;padding:10px 0 10px 12px}
+ .site-header .nav{font-size:19px;gap:0;padding:16px 22px 22px;top:80px}
+ .site-header .nav>a{min-height:48px;padding:15px 0}.site-header .nav-cta{font-size:16px;padding:15px 18px}
+ .section{padding:58px 22px;min-width:0}.section>.section-label{align-items:flex-start;gap:12px}
+ .section>.section-label>strong,.section>.section-label>span:nth-child(2){font-size:clamp(22px,5.6vw,29px);overflow-wrap:anywhere}
+ .section>.section-label .section-index{margin-top:2px}.section>.section-label .label-line{display:none}
+ .section-heading{gap:22px;margin-bottom:32px}.section-heading p{font-size:17px;max-width:100%}
+ .cinematic-hero,.cinematic-hero[data-enhanced=true],.cinematic-hero[data-enhanced=false]{height:auto;min-height:0}
+ .cinematic-hero .hero-sequence-viewport{position:relative!important;top:auto;display:flex;flex-direction:column;min-height:0!important;max-height:none;height:auto;padding:26px 22px 30px;overflow:clip;gap:0}
+ .hero-sequence-topline{position:relative;inset:auto;width:100%;order:1;font-size:13px;line-height:1.6;letter-spacing:.7px}
+ .hero-sequence-topline span:first-child{max-width:none}
+ .cinematic-hero .hero-sequence-portrait{position:relative;inset:auto;width:100%;height:clamp(260px,46svh,420px);order:2;transform:none!important;margin:14px 0 24px;opacity:1;flex-shrink:0;z-index:2}
+ .hero-sequence-portrait img{height:100%;width:100%;object-fit:contain;object-position:center bottom}
+ .cinematic-hero .hero-sequence-content{position:relative;inset:auto;width:100%;order:3;transform:none;padding:0;z-index:3}
+ .hero-sequence-identity,.hero-sequence-headline,.hero-sequence-description,.hero-sequence-actions{opacity:1!important;transform:none!important}
+ .hero-sequence-identity .status{font-size:12px;line-height:1.5;letter-spacing:.6px;flex-wrap:wrap}
+ .hero-sequence-identity h1{font-size:clamp(32px,8.5vw,46px);letter-spacing:-1.6px;line-height:1.1;margin-top:16px}
+ .hero-sequence-headline{font-size:clamp(25px,6.5vw,32px);line-height:1.2;margin:22px 0;letter-spacing:-.8px}
+ .hero-sequence-description{font-size:17px;line-height:1.7;max-width:100%}
+ .hero-sequence-actions{margin-top:24px;gap:12px}.hero-sequence-actions .button{font-size:12px;min-height:50px;padding:16px 18px;flex:1;min-width:0}
+ .hero-sequence-controls{position:relative;inset:auto;order:4;gap:12px;flex-wrap:wrap;margin-top:20px}
+ .hero-sequence-controls button{font-size:11px;min-height:44px;padding:10px 0;line-height:1.5}
+ .hero-sequence-controls button:last-child{display:none}
+ .hero-sequence-baseline{position:relative;inset:auto;order:5;margin-top:18px;font-size:10px;line-height:1.6;gap:14px;flex-wrap:wrap;width:100%;padding-top:16px}
+ .hero-sequence-baseline>span:nth-child(2){display:none}.hero-sequence-baseline a{min-height:44px;display:flex;align-items:center}
+ .hero-sequence-scene{opacity:.6;z-index:0}.core-static-fallback{width:100%}
+ .about-layout,.journey-layout,.contact-layout{grid-template-columns:minmax(0,1fr);gap:32px}
+ .expertise-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.expertise-item{padding:22px;min-width:0}
+ .architecture-core{padding:22px 15px}.core-lines{flex-wrap:wrap;gap:12px;font-size:11px}
+ .architecture-core strong{font-size:30px}.expertise-item h3{font-size:23px;overflow-wrap:anywhere}
+ .universe-shell{min-height:0}.universe-interactive{grid-template-columns:minmax(0,1fr)}
+ .universe-stage{height:auto;min-height:0;margin:0;padding-top:285px;overflow:visible}
+ .universe-stage>canvas{position:absolute;inset:0 0 auto;height:280px;width:100%;pointer-events:none}
+ .universe-centre{top:140px}.universe-centre strong{font-size:28px}
+ .universe-stage .universe-planets{position:relative;inset:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;pointer-events:auto;margin-bottom:16px}
+ .universe-stage .planet{position:static!important;transform:none!important;font-size:12px;width:100%;min-height:44px;white-space:normal;padding:8px 6px}
+ .universe-coordinate{display:none}.orbit-toggle{position:relative;inset:auto;min-height:44px;font-size:11px;padding:12px;width:100%}
+ .skill-panel{padding:22px}.skill-panel p{font-size:17px;min-height:0}.skill-panel .skill-hint{font-size:11px!important}
+ .process-solar{padding-bottom:40px}.process-journey,.process-journey[data-enhanced=true]{height:auto;min-height:0}
+ .process-journey .journey-viewport{position:relative;top:auto;height:auto;min-height:0;max-height:none;padding:25px 20px;border-radius:12px}
+ .journey-intro,.journey-stage-list{max-width:100%;margin-top:25px}.journey-intro p,.journey-stage p{font-size:17px;line-height:1.7}
+ .process-journey .journey-stage-list{height:auto}.process-journey .journey-stage{position:relative;inset:auto;opacity:1;transform:none;pointer-events:auto;padding:25px 0}
+ .journey-stage h3{font-size:28px;margin:16px 0}.journey-stage-tag{font-size:12px}.journey-stage-tag b{font-weight:850;letter-spacing:.04em}
+ .process-planet-scene,.journey-pause,.journey-progress,.journey-scroll{display:none}
+ .process-journey .journey-stage-nav{position:relative;inset:auto;max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:20px 0 0}
+ .journey-stage-nav button{min-height:44px;font-size:12px;padding:12px 10px;gap:8px}.journey-stage-nav button strong{font-size:12px}
+ .exhibition-work{padding-bottom:0}.project-chapter{min-height:0;padding:250px 0 50px;align-items:flex-end}
+ .project-editorial{width:100%;padding:22px 18px;background:#080d13f7;border:1px solid #66829344;border-radius:8px;transform:none}
+ .project-editorial>p{font-size:17px;line-height:1.7}.project-editorial h3{font-size:30px;line-height:1.15;overflow-wrap:anywhere}
+ .exhibition-meta{gap:14px;margin:0 0 24px}.exhibition-meta strong{font-size:20px}.exhibition-meta>span{font-size:12px}
+ .project-editorial .tags{margin-bottom:22px}.project-editorial .project-links{gap:10px 20px;font-size:13px}.project-editorial .project-links a{min-height:44px;display:flex;align-items:center}
+ .exhibition-controls{position:relative;inset:auto;height:auto;padding:0 0 18px}.exhibition-controls button{min-height:44px;font-size:11px;padding:12px 16px}
+ .mechanical-fallback{width:100%;height:60%;right:0;bottom:35%}
+ .services-fluid{padding-bottom:40px}.service-modules{grid-template-columns:minmax(0,1fr);gap:20px}
+ .fluid-module{padding:25px 22px;min-height:280px}.fluid-module h3{font-size:27px}.fluid-module p{font-size:17px}
+ .fluid-controls{gap:12px;flex-wrap:wrap;font-size:11px}.fluid-controls>span{max-width:100%}.fluid-controls button{min-height:44px;font-size:11px;padding:12px 15px}
+ .contact-heading h2{max-width:100%;padding:0}.contact-mascot{position:relative;inset:auto;scale:1;margin:28px auto 0}.contact-mascot .bot{transform:scale(1);margin:0 auto 12px}
+ .contact-layout{margin-top:30px}.contact-form,.contact-copy{min-width:0}.form-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+ .contact-form label{font-size:16px}.contact-form input,.contact-form select,.contact-form textarea{font-size:16px;width:100%;min-width:0;min-height:48px}
+ .contact-form textarea{min-height:150px}.contact-form .button{font-size:15px;min-height:54px;gap:12px}
+ .email-link{font-size:clamp(17px,4.7vw,24px);overflow-wrap:anywhere;line-height:1.5}.social-links{gap:18px;flex-wrap:wrap}.social-links a{min-height:44px;display:flex;align-items:center}
+ .contact-board{right:14px;bottom:calc(14px + env(safe-area-inset-bottom));width:auto;transform:none;filter:none}.contact-board .bot{display:none}
+ .contact-board .board-label{padding:13px 16px;min-height:44px;background:#071b12;color:#b9ffd6;border-color:#408c65;font-size:12px;font-weight:900}
+ body:has(.contact-form :focus) .contact-board{visibility:hidden;pointer-events:none}
+ footer{padding-bottom:calc(88px + env(safe-area-inset-bottom))}.footer-top{gap:24px}.footer-name{font-size:clamp(28px,7.5vw,38px);overflow-wrap:anywhere}
+ .footer-bottom{padding-right:0;gap:18px}.footer-bottom>div{gap:18px;flex-wrap:wrap}.footer-bottom a{min-height:44px;display:inline-flex;align-items:center;font-size:12px}
+ .page-intro,.case-hero{padding:50px 22px 35px}.page-intro h1,.case-hero h1{font-size:clamp(32px,8vw,48px);overflow-wrap:anywhere}
+ .case-content{padding:40px 22px;grid-template-columns:minmax(0,1fr)}.case-image{margin:0 22px}.case-hero .tags,.case-hero .project-links{flex-wrap:wrap}
+ .guides-grid{padding:40px 22px;grid-template-columns:minmax(0,1fr)}.guide{padding:24px;min-width:0}.guide h2{font-size:28px}
+}
+@media(max-width:480px){
+ .hero-sequence-actions{flex-direction:column}.hero-sequence-actions .button{width:100%;font-size:13px}
+ .expertise-grid{grid-template-columns:minmax(0,1fr)}.section>.section-label>strong,.section>.section-label>span:nth-child(2){font-size:23px}
+}
