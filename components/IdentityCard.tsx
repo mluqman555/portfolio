@@ -14,10 +14,10 @@ export default function IdentityCard({paused=false}:{paused?:boolean}){
    if(m.dragging){m.x=m.tx;m.y=m.ty;m.vx=0;m.vy=0}
    else if(reduced.matches||paused){m.x=0;m.y=0;m.vx=0;m.vy=0}
    else{m.vx+=(-m.x*105-m.vx*13)*dt;m.vy+=(-m.y*105-m.vy*13)*dt;m.x+=m.vx*dt;m.y+=m.vy*dt}
-   const angle=Math.atan2(m.x,190+m.y)*180/Math.PI;
+   const baseLength=innerWidth<=800?96:190;const angle=Math.atan2(m.x,baseLength+m.y)*180/Math.PI;
    el.style.setProperty('--card-x',`${m.x}px`);el.style.setProperty('--card-y',`${m.y}px`);
    el.style.setProperty('--card-roll',`${-angle*.38}deg`);el.style.setProperty('--strap-angle',`${-angle}deg`);
-   el.style.setProperty('--strap-length',`${Math.hypot(m.x,190+m.y)}px`);
+   el.style.setProperty('--strap-length',`${Math.hypot(m.x,baseLength+m.y)}px`);
    el.style.setProperty('--card-tilt',`${reduced.matches?0:m.x*.07}deg`);
    if(m.dragging||Math.abs(m.x)+Math.abs(m.y)+Math.abs(m.vx)+Math.abs(m.vy)>.2)m.frame=requestAnimationFrame(render);else m.frame=0;
   };
@@ -35,7 +35,7 @@ export default function IdentityCard({paused=false}:{paused?:boolean}){
    <span className="identity-clip" aria-hidden="true"/><span className="identity-slot" aria-hidden="true"/>
    <span className="identity-inner"><span className="identity-card-header"><span>LUQMAN.DEV</span><span>01 / ENGINEERING</span></span>
     <img src="/luqman-id-photo.svg" width="700" height="700" alt="Muhammad Luqman" draggable={false} fetchPriority="high"/>
-    <span className="identity-info"><strong>Muhammad Luqman</strong><span>Full Stack Developer</span><span className="identity-location">Remote · Faisalabad</span></span>
+    <span className="identity-info"><strong>Muhammad Luqman</strong><span>Full Stack Developer</span><span className="identity-location">Remote Work</span></span>
     <span className="identity-card-footer"><span>DESIGN / BUILD / SHIP</span><span aria-hidden="true">▥▥▥▥</span></span>
    </span><span className="identity-shine" aria-hidden="true"/>
   </button><p id="identity-hint" className="identity-hint">GRAB THE CARD. GIVE IT A PULL.</p>
