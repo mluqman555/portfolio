@@ -1,0 +1,39 @@
+/* Button materials adapted from Uiverse.io: Spacious74 and SelfMadeSystem.
+   Responsive blue/white borders replace fixed SVG paths; real controls keep their semantics. */
+@property --action-angle{syntax:'<angle>';initial-value:20deg;inherits:false}
+body :is(.button,.nav-cta,button:not(.identity-card),.vault-links a,.project-links a,.case-link,.contact-form .text-link,.board-label,.back-top){
+ --action-angle:20deg;
+ border:2px solid transparent!important;
+ border-radius:14px!important;
+ background:radial-gradient(circle at 0% 100%,#008cff24,transparent 65%) padding-box,radial-gradient(ellipse at 85% -20%,#536373,#111922 65%) padding-box,conic-gradient(from var(--action-angle),#e6f5ff,#5fbcff 18%,#153b69 42%,#166eef 65%,#9ddfff 84%,#e6f5ff) border-box!important;
+ color:#fff!important;-webkit-text-fill-color:#fff!important;
+ font-weight:850!important;text-shadow:0 1px 2px #0008!important;
+ box-shadow:inset 0 1px 0 #ffffff16,-6px 8px 22px #006bff15;
+ min-height:44px;
+ transition:box-shadow .3s ease,filter .3s ease,transform .3s ease;
+ text-decoration:none;
+}
+body :is(.button,.nav-cta,button:not(.identity-card),.vault-links a,.project-links a,.case-link,.contact-form .text-link,.board-label,.back-top):is(:hover,:focus-visible){
+ animation:action-border-turn 5s linear infinite;
+ box-shadow:inset 0 1px 0 #ffffff2a,-7px 9px 26px #007aff30,4px -4px 17px #d9f1ff12;
+ filter:brightness(1.12);
+}
+body :is(.button,.nav-cta,button:not(.identity-card),.vault-links a,.project-links a,.case-link,.contact-form .text-link,.board-label,.back-top):focus-visible{outline:3px solid #a4dfff!important;outline-offset:4px}
+body :is(.button,.nav-cta,button:not(.identity-card),.vault-links a,.project-links a,.case-link,.contact-form .text-link,.board-label,.back-top):active{filter:brightness(.96);box-shadow:inset 0 2px 8px #0005,0 0 18px #168dff33}
+body :is(.button,.nav-cta,.vault-links a,.project-links a,.case-link,.board-label) :is(span,strong,b){color:#fff!important;-webkit-text-fill-color:#fff!important}
+body .button-white{background:radial-gradient(circle at 0% 100%,#78d9ff24,transparent 60%) padding-box,linear-gradient(135deg,#18568b,#12315b 62%,#101c32) padding-box,conic-gradient(from var(--action-angle),#f1fbff,#86d4ff 22%,#246dbb 48%,#379cff 72%,#f1fbff) border-box!important}
+body .button{padding:15px 23px!important;font-size:14px!important;line-height:1.45;min-height:54px}
+body .nav-cta{padding:12px 18px!important;font-size:13px!important;display:inline-flex;align-items:center;justify-content:center;gap:14px}
+body :is(.vault-links a,.project-links a,.case-link,.contact-form .text-link){padding:10px 13px;font-size:12px!important;line-height:1.4;display:inline-flex;align-items:center;justify-content:center;gap:9px;white-space:normal}
+body .vault-links{gap:9px}.vault-links a span{font-size:17px}
+body .board-label{padding:12px 18px!important;font-size:14px!important;line-height:1.35}
+body .back-top{display:flex;align-items:center;justify-content:center;width:48px;height:48px}
+body :is(.hero-sequence-controls button,.fluid-controls button,.forge-topline button,.orbit-toggle,.journey-controls button,.exhibition-controls button){padding:10px 14px;font-size:11px!important;line-height:1.4;letter-spacing:.045em}
+body .menu-toggle{padding:10px 14px!important;font-size:13px!important}
+body :is(.vault-index button,.forge-nav button)[aria-current],body .planet[aria-pressed=true],body button[aria-pressed=true]{box-shadow:inset 0 0 0 1px #d2eeff80,0 0 19px #1d8dff2b;background:radial-gradient(circle at 0% 100%,#52baff24,transparent 65%) padding-box,linear-gradient(135deg,#184f79,#152438) padding-box,conic-gradient(from var(--action-angle),#fff,#79ceff,#206bd1,#d7f2ff,#fff) border-box!important}
+body .forge-nav button :is(span,strong),body .planet span{color:#fff!important;-webkit-text-fill-color:#fff!important}
+body button:disabled{opacity:.55;cursor:not-allowed;animation:none!important;filter:none!important}
+@keyframes action-border-turn{to{--action-angle:380deg}}
+@media(hover:hover) and (pointer:fine){body :is(.button,.nav-cta,.vault-links a,.project-links a,.case-link,.board-label):hover{transform:translateY(-2px)}body :is(.button,.nav-cta,.vault-links a,.project-links a,.case-link,.board-label):active{transform:translateY(0)}}
+@media(max-width:700px){body .button{font-size:12px!important;padding:14px 17px!important}body .nav-cta{font-size:12px!important}body .forge-topline{flex-wrap:wrap;gap:12px}body .vault-links a{min-height:44px}body .board-label{font-size:12px!important;padding:10px 13px!important}}
+@media(prefers-reduced-motion:reduce){body :is(.button,.nav-cta,button:not(.identity-card),.vault-links a,.project-links a,.case-link,.contact-form .text-link,.board-label,.back-top){animation:none!important;transition:none!important}}
