@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import './identity-theme.css';
+import './process-forge.css';
 import {JsonLd,pageMetadata,siteUrl} from '../components/seo';
 const geist = localFont({src:'../public/fonts/geist.woff2',variable:'--font-geist',display:'swap',weight:'100 900'});
 const mono = localFont({src:'../public/fonts/geist-mono.woff2',variable:'--font-mono',display:'swap',weight:'100 900'});
