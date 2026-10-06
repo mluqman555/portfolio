@@ -7,6 +7,7 @@ export default function VoiceExperience(){
  const music=useRef<HTMLAudioElement>(null);
  const [state,setState]=useState('waiting');
  useEffect(()=>{
+  const background=music.current;
   let disposed=false,started=false,complete=false,pending=false,index=0,musicPending=false;
   let speech:SpeechSynthesisUtterance|null=null,recording:HTMLAudioElement|null=null;
   const lines=spokenText(introductionText).match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[spokenText(introductionText)];
@@ -30,18 +31,18 @@ export default function VoiceExperience(){
    pending=true;next();
   };
   const beginMusic=()=>{
-   const track=music.current;if(!track||disposed||document.hidden||musicPending||!track.paused)return;
+   const track=background;if(!track||disposed||document.hidden||musicPending||!track.paused)return;
    track.volume=.4;musicPending=true;void track.play().catch(()=>{}).finally(()=>{musicPending=false});
   };
   const activate=()=>{beginMusic();beginNarration()};
-  const visibility=()=>{if(document.hidden){music.current?.pause();recording?.pause();if(speech&&'speechSynthesis' in window)window.speechSynthesis.pause()}else{beginMusic();if(recording&&started)void recording.play().catch(()=>{});else if(speech&&started)window.speechSynthesis.resume();else if(started&&!complete)next();else beginNarration()}};
+  const visibility=()=>{if(document.hidden){background?.pause();recording?.pause();if(speech&&'speechSynthesis' in window)window.speechSynthesis.pause()}else{beginMusic();if(recording&&started)void recording.play().catch(()=>{});else if(speech&&started)window.speechSynthesis.resume();else if(started&&!complete)next();else beginNarration()}};
   const voicesReady=()=>{if(!started&&!complete)beginNarration()};
   document.addEventListener('pointerdown',activate,{passive:true});
   document.addEventListener('keydown',activate);
   document.addEventListener('visibilitychange',visibility);
   if('speechSynthesis' in window)window.speechSynthesis.addEventListener('voiceschanged',voicesReady);
   activate();
-  return()=>{disposed=true;music.current?.pause();recording?.pause();if(speech&&'speechSynthesis' in window)window.speechSynthesis.cancel();document.removeEventListener('pointerdown',activate);document.removeEventListener('keydown',activate);document.removeEventListener('visibilitychange',visibility);if('speechSynthesis' in window)window.speechSynthesis.removeEventListener('voiceschanged',voicesReady)};
+  return()=>{disposed=true;background?.pause();recording?.pause();if(speech&&'speechSynthesis' in window)window.speechSynthesis.cancel();document.removeEventListener('pointerdown',activate);document.removeEventListener('keydown',activate);document.removeEventListener('visibilitychange',visibility);if('speechSynthesis' in window)window.speechSynthesis.removeEventListener('voiceschanged',voicesReady)};
  },[]);
  return <audio ref={music} src="/api/background-music" preload="none" loop hidden data-introduction-state={state} data-music-volume="0.4" aria-hidden="true"/>;
 }
