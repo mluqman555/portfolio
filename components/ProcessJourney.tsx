@@ -2,11 +2,11 @@
 import {useEffect,useRef,useState} from 'react';
 import type {CSSProperties} from 'react';
 const steps=[
- {title:'Discover',copy:'Understand the user, the objective and the technical constraints.',tag:'IDEA / PLAN',color:'#73f4c1',rgb:[115,244,193],hue:95,shape:[50,50,50,50]},
+ {title:'Discover',copy:'Understand the user, the objective and the technical constraints.',tag:'IDEA / PLAN',color:'#73f4c1',rgb:[115,244,193],hue:-45,shape:[50,50,50,50]},
  {title:'Structure',copy:'Turn the idea into a clear architecture and release plan.',tag:'ARCHITECTURE',color:'#77dfff',rgb:[119,223,255],hue:0,shape:[43,48,43,48]},
  {title:'Design',copy:'Build a visual system that is intuitive, distinctive and responsive.',tag:'INTERFACE',color:'#d9a6ff',rgb:[217,166,255],hue:60,shape:[46,54,43,57]},
  {title:'Engineer',copy:'Connect frontend, application logic, APIs and data.',tag:'BUILD / CONNECT',color:'#8cc6ff',rgb:[140,198,255],hue:-15,shape:[40,44,40,44]},
- {title:'Validate',copy:'Test real interactions, edge cases and performance.',tag:'TEST',color:'#c8ffd9',rgb:[200,255,217],hue:110,shape:[49,49,49,49]},
+ {title:'Validate',copy:'Test real interactions, edge cases and performance.',tag:'TEST',color:'#c8ffd9',rgb:[200,255,217],hue:-55,shape:[49,49,49,49]},
  {title:'Launch',copy:'Deploy confidently and continue improving the product using real feedback.',tag:'DEPLOY / ITERATE',color:'#ffc683',rgb:[255,198,131],hue:180,shape:[47,53,47,53]},
 ];
 const clamp=(n:number)=>Math.max(0,Math.min(1,n));
@@ -38,7 +38,7 @@ export default function ProcessJourney(){
    el.style.setProperty('--extract',String(extraction));el.style.setProperty('--extract-width',`${extraction*100}%`);
    panels.current.forEach((panel,i)=>{if(!panel)return;const shown=i===index;panel.style.visibility=shown?'visible':'hidden';panel.style.pointerEvents=shown?'auto':'none';panel.setAttribute('aria-hidden',String(!shown));if(!shown)return;
     panel.style.setProperty('--emerge-x',`${(1-extraction)*230}px`);panel.style.setProperty('--emerge-z',`${(1-extraction)*-90}px`);
-    for(const [key,delay] of [['tag',0],['title',.035],['copy',.075],['rule',.11]] as const){const amount=(index===0?1:reveal(local,delay))*outgoing;const edge=100-amount*100;panel.style.setProperty(`--${key}-mask`,`polygon(${edge}% 0,100% 0,100% 100%,${Math.min(100,edge+2)}% 100%,${Math.max(0,edge-2)}% 78%,${Math.min(100,edge+3)}% 56%,${Math.max(0,edge-1)}% 32%)`)}
+    for(const [key,delay] of [['tag',0],['title',.035],['copy',.075],['rule',.11]] as const){const amount=(index===0?1:reveal(local,delay))*outgoing;const edge=100-amount*100;panel.style.setProperty(`--${key}-mask`,amount>.999?'none':`polygon(${edge}% 0,100% 0,100% 100%,${Math.min(100,edge+2)}% 100%,${Math.max(0,edge-2)}% 78%,${Math.min(100,edge+3)}% 56%,${Math.max(0,edge-1)}% 32%)`)}
    });
    current.current=index;if(last!==index){last=index;el.dataset.stage=String(index);setActive(index)}
   };
