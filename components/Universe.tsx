@@ -23,7 +23,7 @@ export default function Universe(){
    gl.useProgram(program);buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);position=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,3,gl.FLOAT,false,0,0);
    ratio=gl.getUniformLocation(program,'ratio');colour=gl.getUniformLocation(program,'color');point=gl.getUniformLocation(program,'pointSize');gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
   }
-  const preference=matchMedia('(prefers-reduced-motion: reduce)');let width=0,height=0,frame=0,previous=0,angle=.18,visible=false;
+  const preference=matchMedia('(prefers-reduced-motion: reduce)');let width=0,height=0,frame=0,previous=0,angle=.18,visible=false;let sizes:number[][]=[];
   const transform=(x:number,y:number,band:number):[number,number,number]=>{const tilt=.31+band*.05;return [x,y*Math.cos(tilt),y*Math.sin(tilt)]};
   const project=([x,y,z]:[number,number,number])=>{const d=3.5/(3.5-z*.28);return [width/2+x*d*height/2,height/2-y*d*height/2]};
   const draw=(verts:number[],rgba:number[],loop:boolean)=>{
@@ -33,13 +33,15 @@ export default function Universe(){
   const render=(now:number)=>{
    frame=0;if(!visible||document.hidden)return;const dt=previous?Math.min(now-previous,50):16;previous=now;if(!preference.matches)angle+=dt*.000034*(focused.current ? .16 : 1);
    if(gl){gl.clear(gl.COLOR_BUFFER_BIT);gl.uniform1f(ratio,width/height)}else ctx?.clearRect(0,0,width,height);
-   const mobile=width<700,scale=Math.min(1,width/height*.92),radii=[.30,.51,.72,.94];
+   const mobile=width<700,scale=Math.min(1,width/height*.92),radii=[.37,.59,.80,1.02];const labels:Array<{x:number;y:number;dy:number;z:number}>=[];
    for(let band=0;band<4;band++){const ring:number[]=[];for(let j=0;j<=120;j++){const a=j/120*Math.PI*2;ring.push(...transform(Math.cos(a)*radii[band]*scale,Math.sin(a)*radii[band]*scale,band))}draw(ring,colours[band],true)}
-   orbit.forEach((node,i)=>{const a=angle*(1-node.band*.16)*(node.band%2?-1:1)+node.slot*Math.PI/3+node.band*.28,r=radii[node.band]*scale,p=transform(Math.cos(a)*r,Math.sin(a)*r,node.band),[x,y]=project(p);const button=buttons.current[i];if(button&&!mobile){button.style.transform=`translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;button.style.zIndex=p[2]>0?'4':'2';button.style.setProperty('--orbit-depth',String(p[2]>0?1:.7))}draw(p,node.name===selection.current?[.2,1,.6,1]:colours[node.band],false)});
+   orbit.forEach((node,i)=>{const a=angle*(1-node.band*.16)*(node.band%2?-1:1)+node.slot*Math.PI/3+node.band*Math.PI/6,r=radii[node.band]*scale,p=transform(Math.cos(a)*r,Math.sin(a)*r,node.band),[x,y]=project(p);labels.push({x,y,dy:0,z:p[2]});draw(p,node.name===selection.current?[.2,1,.6,1]:colours[node.band],false)});
+   if(!mobile){for(let pass=0;pass<4;pass++){for(let i=0;i<labels.length;i++)for(let j=i+1;j<labels.length;j++){const a=labels[i],b=labels[j],dx=Math.abs(a.x-b.x),dy=a.y+a.dy-b.y-b.dy,required=((sizes[i]?.[1]||36)+(sizes[j]?.[1]||36))/2+8;if(dx<((sizes[i]?.[0]||110)+(sizes[j]?.[0]||110))/2+10&&Math.abs(dy)<required){const push=(required-Math.abs(dy))/2,sign=dy===0?(i%2?1:-1):Math.sign(dy);a.dy=Math.max(-48,Math.min(48,a.dy+sign*push));b.dy=Math.max(-48,Math.min(48,b.dy-sign*push))}}}
+   labels.forEach((p,i)=>{const button=buttons.current[i];if(button){button.style.transform=`translate3d(${p.x}px,${p.y+p.dy}px,0) translate(-50%,-50%)`;button.style.zIndex=p.z>0?'4':'2';button.style.setProperty('--orbit-depth',String(p.z>0?1:.7))}})}
    if(!preference.matches)frame=requestAnimationFrame(render);
   };
   const stop=()=>{cancelAnimationFrame(frame);frame=0;previous=0};const schedule=()=>{if(visible&&!document.hidden&&!frame)frame=requestAnimationFrame(render)};
-  const resize=()=>{width=canvas.clientWidth;height=canvas.clientHeight;const dpr=Math.min(devicePixelRatio,width<700?1:1.5);canvas.width=width*dpr;canvas.height=height*dpr;if(gl)gl.viewport(0,0,canvas.width,canvas.height);else ctx?.setTransform(dpr,0,0,dpr,0,0);schedule()};
+  const resize=()=>{width=canvas.clientWidth;height=canvas.clientHeight;const dpr=Math.min(devicePixelRatio,width<700?1:1.5);canvas.width=width*dpr;canvas.height=height*dpr;sizes=buttons.current.map(button=>[button?.offsetWidth||110,button?.offsetHeight||36]);if(gl)gl.viewport(0,0,canvas.width,canvas.height);else ctx?.setTransform(dpr,0,0,dpr,0,0);schedule()};
   const visibility=()=>{if(document.hidden)stop();else schedule()};
   const change=()=>{stop();schedule()};
   const ro=new ResizeObserver(resize);ro.observe(el);const io=new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(visible)schedule();else stop()});io.observe(el);
