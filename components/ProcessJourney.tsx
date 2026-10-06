@@ -14,7 +14,7 @@ const ease=(n:number)=>{const t=clamp(n);return t*t*(3-2*t)};
 const reveal=(t:number,delay=0)=>ease((t-delay)/.2);
 export default function ProcessJourney(){
  const ref=useRef<HTMLDivElement>(null),panels=useRef<(HTMLElement|null)[]>([]);
- const [active,setActive]=useState(0),[paused,setPaused]=useState(false),[enhanced,setEnhanced]=useState(false);
+ const [active,setActive]=useState(0),[enhanced,setEnhanced]=useState(false);
  const current=useRef(0),enabled=useRef(false);
  useEffect(()=>{
   const el=ref.current;if(!el)return;const preference=matchMedia('(prefers-reduced-motion: reduce)');let frame=0,visible=true,last=-1,mode=false;
@@ -42,18 +42,18 @@ export default function ProcessJourney(){
    });
    current.current=index;if(last!==index){last=index;el.dataset.stage=String(index);setActive(index)}
   };
-  const schedule=()=>{if(!frame&&visible)frame=requestAnimationFrame(update)};
-  const io=new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(visible)schedule()},{rootMargin:'200px'});io.observe(el);
-  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);preference.addEventListener('change',schedule);update();
-  let pointerFrame=0,px=0,py=0;const move=(e:PointerEvent)=>{if(!mode||e.pointerType==='touch'||el.dataset.paused==='true')return;const r=el.querySelector('.forge-planet-wrap')?.getBoundingClientRect();if(!r)return;px=Math.max(-1,Math.min(1,(e.clientX-r.left-r.width/2)/r.width));py=Math.max(-1,Math.min(1,(e.clientY-r.top-r.height/2)/r.height));if(!pointerFrame)pointerFrame=requestAnimationFrame(()=>{pointerFrame=0;el.style.setProperty('--tilt-x',`${-py*5}deg`);el.style.setProperty('--tilt-y',`${px*5}deg`);el.style.setProperty('--light-x',`${50+px*12}%`);el.style.setProperty('--light-y',`${35+py*12}%`)})};
+  const schedule=()=>{el.dataset.paused=String(!visible||document.hidden);if(!frame&&visible&&!document.hidden)frame=requestAnimationFrame(update)};
+  const io=new IntersectionObserver(([e])=>{visible=e.isIntersecting;schedule()},{rootMargin:'200px'});io.observe(el);
+  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);document.addEventListener('visibilitychange',schedule);preference.addEventListener('change',schedule);update();
+  let pointerFrame=0,px=0,py=0;const move=(e:PointerEvent)=>{if(!mode||e.pointerType==='touch')return;const r=el.querySelector('.forge-planet-wrap')?.getBoundingClientRect();if(!r)return;px=Math.max(-1,Math.min(1,(e.clientX-r.left-r.width/2)/r.width));py=Math.max(-1,Math.min(1,(e.clientY-r.top-r.height/2)/r.height));if(!pointerFrame)pointerFrame=requestAnimationFrame(()=>{pointerFrame=0;el.style.setProperty('--tilt-x',`${-py*5}deg`);el.style.setProperty('--tilt-y',`${px*5}deg`);el.style.setProperty('--light-x',`${50+px*12}%`);el.style.setProperty('--light-y',`${35+py*12}%`)})};
   const leave=()=>{el.style.setProperty('--tilt-x','0deg');el.style.setProperty('--tilt-y','0deg');el.style.setProperty('--light-x','50%');el.style.setProperty('--light-y','35%')};el.addEventListener('pointermove',move,{passive:true});el.addEventListener('pointerleave',leave);
-  return()=>{cancelAnimationFrame(frame);cancelAnimationFrame(pointerFrame);io.disconnect();removeEventListener('scroll',schedule);removeEventListener('resize',schedule);preference.removeEventListener('change',schedule);el.removeEventListener('pointermove',move);el.removeEventListener('pointerleave',leave)};
+  return()=>{cancelAnimationFrame(frame);cancelAnimationFrame(pointerFrame);io.disconnect();removeEventListener('scroll',schedule);removeEventListener('resize',schedule);document.removeEventListener('visibilitychange',schedule);preference.removeEventListener('change',schedule);el.removeEventListener('pointermove',move);el.removeEventListener('pointerleave',leave)};
  },[]);
  const go=(i:number)=>{const el=ref.current;if(!el)return;if(enabled.current){const viewport=el.querySelector<HTMLElement>('.forge-viewport');const travel=el.offsetHeight-(viewport?.offsetHeight||innerHeight);window.scrollTo({top:scrollY+el.getBoundingClientRect().top-24+Math.max(0,(i+.4-.25)/5.75)*travel,behavior:'smooth'})}else{current.current=i;setActive(i);el.dataset.stage=String(i);el.style.setProperty('--forge-accent',steps[i].color);el.style.setProperty('--forge-rgb',steps[i].rgb.join(' '));el.style.setProperty('--planet-hue',`${steps[i].hue}deg`);panels.current[i]?.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})}};
- return <div className="process-forge" ref={ref} data-enhanced={enhanced} data-stage={active} data-paused={paused} style={{'--forge-accent':steps[active].color,'--forge-rgb':steps[active].rgb.join(' ')} as CSSProperties}>
+ return <div className="process-forge" ref={ref} data-enhanced={enhanced} data-stage={active} style={{'--forge-accent':steps[active].color,'--forge-rgb':steps[active].rgb.join(' ')} as CSSProperties}>
   <div className="forge-viewport">
    <div className="forge-backdrop" aria-hidden="true"/><div className="forge-grid" aria-hidden="true"/>
-   <div className="forge-topline mono"><span className="pipeline-status"><i/> PIPELINE: ACTIVE</span><button type="button" onClick={()=>setPaused(p=>!p)} aria-pressed={paused}>{paused?'RESUME SURFACE MOTION':'PAUSE SURFACE MOTION'}</button></div>
+   <div className="forge-topline mono"><span className="pipeline-status"><i/> PIPELINE: ACTIVE</span></div>
    <div className="forge-intro"><h2>Good products<br/>don’t happen<br/>by accident.</h2><p>A clear process. Connected decisions.<br/>A product that’s ready for the real world.</p></div>
    <div className="forge-planet-wrap" aria-hidden="true">
     <div className="forge-orbit forge-orbit-a"/><div className="forge-orbit forge-orbit-b"/>
