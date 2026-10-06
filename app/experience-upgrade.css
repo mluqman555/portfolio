@@ -300,3 +300,9 @@ body main .contact-form :is(input,select,textarea){padding:13px 14px}
  body main .capability-slides .capability-group:before{animation:none}
  body main .project-rail .vault-slot{transform:none!important;transition:none}
 }
+
+/* Keep the central identity clear as the orbit canvas becomes more compact. */
+body main .expanded-universe-stage .universe-centre{width:130px}
+body main .expanded-universe-stage .universe-centre strong{font-size:32px;margin:9px 0}
+body main .expanded-universe-stage .universe-centre>span{font-size:7px}
+@media(max-width:800px){body main .expanded-universe-stage .universe-centre strong{font-size:28px}}
