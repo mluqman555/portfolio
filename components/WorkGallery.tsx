@@ -7,7 +7,7 @@ const accents=['#8acfff','#93e9bf','#c0a2ff','#7fe0e8','#edbc7d','#f0a49e','#bbb
 export default function WorkGallery(){
  const root=useRef<HTMLElement>(null);const [active,setActive]=useState(0);
  useEffect(()=>{const host=root.current;if(!host)return;const cards=Array.from(host.querySelectorAll<HTMLElement>('.vault-slot'));let frame=0;const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- const measure=()=>{frame=0;let closest=Infinity,index=0;cards.forEach((card,i)=>{const r=card.getBoundingClientRect(),d=Math.abs(r.top+r.height*.5-innerHeight*.5);if(d<closest){closest=d;index=i}const depth=reduced.matches?0:Math.min(1,d/innerHeight);card.style.setProperty('--scroll-depth',String(depth));});setActive(index)};
+ const measure=()=>{frame=0;let closest=Infinity,index=0;const distances:number[]=[];cards.forEach((card,i)=>{const r=card.getBoundingClientRect(),d=Math.abs(r.top+r.height*.5-innerHeight*.5);distances[i]=d;if(d<closest){closest=d;index=i}const depth=reduced.matches?0:Math.min(1,d/innerHeight);card.style.setProperty('--scroll-depth',String(depth));});setActive(previous=>distances[previous]<=closest+48?previous:index)};
  const schedule=()=>{if(!frame)frame=requestAnimationFrame(measure)};
  const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){(e.target as HTMLElement).dataset.entered='true';io.unobserve(e.target)}})},{threshold:.08});cards.forEach(c=>io.observe(c));schedule();addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);reduced.addEventListener('change',schedule);
  return()=>{cancelAnimationFrame(frame);io.disconnect();removeEventListener('scroll',schedule);removeEventListener('resize',schedule);reduced.removeEventListener('change',schedule)};
