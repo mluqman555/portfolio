@@ -122,9 +122,9 @@ body:has(.cinematic-hero) .nav>a,body:has(.cinematic-hero) .menu-toggle{
  .cinematic-hero .hero-sequence-viewport{position:relative!important;top:auto;display:flex;flex-direction:column;min-height:0!important;max-height:none;height:auto;padding:26px 22px 30px;overflow:clip;gap:0}
  .hero-sequence-topline{position:relative;inset:auto;width:100%;order:1;font-size:13px;line-height:1.6;letter-spacing:.7px}
  .hero-sequence-topline span:first-child{max-width:none}
- .cinematic-hero .hero-sequence-portrait{position:relative;inset:auto;width:100%;height:clamp(260px,46svh,420px);order:2;transform:none!important;margin:14px 0 24px;opacity:1;flex-shrink:0;z-index:2}
+ .cinematic-hero .hero-sequence-portrait{position:relative;inset:auto!important;width:100%;height:clamp(260px,46svh,420px)!important;order:2;transform:none!important;margin:14px 0 24px;opacity:1;flex-shrink:0;z-index:2}
  .hero-sequence-portrait img{height:100%;width:100%;object-fit:contain;object-position:center bottom}
- .cinematic-hero .hero-sequence-content{position:relative;inset:auto;width:100%;order:3;transform:none;padding:0;z-index:3}
+ .cinematic-hero .hero-sequence-content{position:relative;inset:auto!important;width:100%;order:3;transform:none;padding:0!important;z-index:3}
  .hero-sequence-identity,.hero-sequence-headline,.hero-sequence-description,.hero-sequence-actions{opacity:1!important;transform:none!important}
  .hero-sequence-identity .status{font-size:12px;line-height:1.5;letter-spacing:.6px;flex-wrap:wrap}
  .hero-sequence-identity h1{font-size:clamp(32px,8.5vw,46px);letter-spacing:-1.6px;line-height:1.1;margin-top:16px}
