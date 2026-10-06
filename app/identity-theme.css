@@ -51,3 +51,6 @@ main .section .section-index{border-color:#c8e4ff50;color:#c4e3ff}main .section 
  .process-journey[data-enhanced=true]{height:auto}
 }
 @media(prefers-reduced-motion:reduce){.cinematic-hero .hero-sequence-viewport{min-height:0!important}.identity-card{transition:none}.process-journey[data-enhanced=true]{height:auto}}
+/* Keep emphasized copy readable on the new dark surfaces. */
+.section .about-copy strong,.section p strong{color:#f3fbff}
+.identity-inner img{height:197px}
