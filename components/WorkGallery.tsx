@@ -16,7 +16,7 @@ export default function WorkGallery(){
  const move=(e:PointerEvent<HTMLElement>)=>{if(e.pointerType!=='mouse'||!matchMedia('(hover:hover) and (pointer:fine)').matches||matchMedia('(prefers-reduced-motion: reduce)').matches)return;const el=e.currentTarget,r=el.getBoundingClientRect(),x=Math.max(-1,Math.min(1,(e.clientX-r.left)/r.width*2-1)),y=Math.max(-1,Math.min(1,(e.clientY-r.top)/r.height*2-1));el.style.setProperty('--rx',`${-y*5}deg`);el.style.setProperty('--ry',`${x*5}deg`);el.style.setProperty('--mx',`${x*4}px`);el.style.setProperty('--my',`${y*4}px`);el.style.setProperty('--light-x',`${(x+1)*50}%`);el.style.setProperty('--light-y',`${(y+1)*50}%`);};
  const reset=(e:PointerEvent<HTMLElement>)=>{const el=e.currentTarget;['--rx','--ry','--mx','--my','--light-x','--light-y'].forEach(p=>el.style.removeProperty(p));};
  return <section ref={root} className="work section project-vault" id="work">
- <div className="section-label"><span className="section-index">01</span><h2 className="work-title">MY WORK</h2><span className="label-line"/></div>
+ <div className="section-label"><span className="section-index">03</span><h2 className="work-title">MY WORK</h2><span className="label-line"/></div>
  <div className="section-heading"><h3 className="work-subtitle">Ideas made<br/><span>operational.</span></h3><p>Completed work. Current development.<br/>One connected project collection.</p></div>
 
  <div className="vault-grid">{projectEntries.map((p,i)=><div className="vault-slot" key={p.name} id={`work-project-${i+1}`} style={{'--card-accent':accents[i]} as CSSProperties}>
