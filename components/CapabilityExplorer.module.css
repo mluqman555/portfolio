@@ -4,3 +4,31 @@
 @media(max-width:850px){.workspace{grid-template-columns:190px minmax(0,1fr)}.explorer{padding:24px}.tab{gap:10px;padding:13px 12px}.panelContent{padding:22px 20px}.stack{flex-basis:76px}.footer{padding:14px 20px}.skill{font-size:12px;padding:9px 11px}}
 @media(max-width:620px){.explorer{margin-top:16px;padding:20px 16px;border-radius:18px}.header{align-items:flex-start;gap:12px;margin-bottom:22px}.header h3{font-size:29px}.header .eyebrow{font-size:8px;letter-spacing:.08em}.total{flex-direction:column;align-items:flex-end;gap:6px;padding-top:15px}.total strong{font-size:43px}.total>span{font-size:8px;text-align:right;line-height:1.5}.workspace{grid-template-columns:minmax(0,1fr);gap:14px}.rail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.tab{min-height:58px;padding:11px 10px;gap:9px;border-color:#ffffff09}.tab>span:nth-child(2){font-size:13px}.tabNumber{font-size:9px}.tab small{font-size:9px;margin-top:3px}.tabArrow{font-size:15px}.railFooter{display:none}.panelContent{padding:20px 16px;min-height:310px}.intro{gap:12px;margin:18px 0 20px}.intro h4{font-size:23px}.intro p{font-size:12px}.stack{flex-basis:60px;height:68px}.stack i{width:48px;height:48px;border-radius:12px}.stack>span{font-size:20px}.skills{gap:7px}.skill{font-size:12px;padding:9px 10px;gap:6px}.footer{padding:12px 16px}.footer>span{font-size:11px;max-width:20ch}.bottom{font-size:8px;letter-spacing:.04em;flex-wrap:wrap;gap:8px}.focus{margin-left:auto}.tab:hover{transform:none}}
 @media(prefers-reduced-motion:reduce){.explorer *{animation:none!important;transition:none!important}.skill:hover,.skill.chosen,.tab:hover{transform:none}}
+
+/* Scroll-driven pinned sequence: natural document scroll, without wheel interception. */
+.scrollScene{position:relative;height:var(--scene-height,280vh);margin-top:24px;overflow:visible;overflow-anchor:none}
+.scrollScene .explorer{position:sticky;top:var(--pin-top,20px);margin-top:0;perspective:1200px}
+.scrollScene .workspace{perspective:1200px;align-items:stretch}
+.scrollScene .panel{transform:rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transform-origin:50% 70%;animation:cardRise 650ms cubic-bezier(.16,1,.3,1) backwards;transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;will-change:transform;backface-visibility:hidden;min-height:370px}
+.scrollScene .panel:hover{border-color:color-mix(in srgb,var(--accent) 36%,transparent);box-shadow:0 18px 50px #0004,0 0 30px color-mix(in srgb,var(--accent) 7%,transparent)}
+.scrollScene .panelContent{position:relative}
+.scrollScene .skill{position:relative;overflow:hidden;gap:9px;transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s,background .25s}
+.scrollScene .skill::after{content:'';pointer-events:none;position:absolute;inset:-80% -30%;background:linear-gradient(110deg,transparent 42%,#ffffff20 50%,transparent 58%);transform:translateX(-110%);transition:transform .55s ease}
+.scrollScene .skill:hover::after{transform:translateX(110%)}
+.scrollScene .skill:hover{transform:translateY(-4px) scale(1.035);box-shadow:0 8px 20px #0005,0 0 16px color-mix(in srgb,var(--accent) 12%,transparent)}
+.skillMark{display:inline-flex;align-items:center;justify-content:center;flex:0 0 18px;color:var(--accent)}
+.skillMark svg{display:block;flex-shrink:0;transition:transform .3s ease,filter .3s ease}
+.skill:hover .skillMark svg{transform:rotate(-8deg) scale(1.12);filter:drop-shadow(0 0 5px currentColor)}
+.selectedCheck{color:var(--accent);flex-shrink:0}
+.scrollScene .tab.active{border-color:color-mix(in srgb,var(--accent) 55%,transparent);box-shadow:inset 3px 0 0 var(--accent),0 0 24px color-mix(in srgb,var(--accent) 5%,transparent)}
+.scrollScene .tab:hover .tabArrow{transform:translate(2px,-2px)}
+.tabArrow{display:inline-flex;transition:transform .25s ease}
+.stack>span{display:grid;place-items:center}
+.scrollHint{display:flex;align-items:center;gap:7px}
+.scrollHint svg{color:var(--accent);animation:scrollNudge 2s ease-in-out infinite}
+.scrollProgress{position:absolute;bottom:0;left:0;width:100%;height:2px;background:#ffffff08}
+.scrollProgress::after{content:'';display:block;width:100%;height:100%;background:var(--accent);transform:scaleX(var(--progress,0));transform-origin:left;box-shadow:0 0 12px var(--accent);transition:background .3s}
+@keyframes cardRise{from{opacity:0;transform:translate3d(0,95px,-100px) rotateX(12deg) scale(.96)}to{opacity:1;transform:translate3d(0,0,0) rotateX(0deg) scale(1)}}
+@keyframes scrollNudge{50%{transform:translateY(3px)}}
+@media(max-width:620px){.scrollScene{margin-top:16px}.scrollScene .panel{min-height:420px}.scrollScene .explorer{padding:16px 12px}.scrollScene .header{margin-bottom:16px}.scrollScene .header h3{font-size:25px}.scrollScene .panelContent{padding:16px 12px;min-height:0}.scrollScene .intro{margin:12px 0 15px}.scrollScene .intro h4{font-size:21px}.scrollScene .skill{font-size:11px;padding:8px 9px;gap:7px}.scrollScene .skillMark{flex-basis:16px}.skillMark svg{width:16px;height:16px}.scrollScene .skills{gap:6px}.scrollScene .footer{padding:10px 12px}.scrollScene .bottom{margin-top:12px}}
+@media(prefers-reduced-motion:reduce){.scrollScene .panel{animation:none;transition:none;transform:none;will-change:auto}.scrollScene .skill::after,.scrollHint svg{animation:none;transition:none}.scrollScene .skill:hover,.scrollScene .skill:hover .skillMark svg{transform:none;filter:none}}
