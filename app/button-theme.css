@@ -21,7 +21,7 @@ body :is(.button,.nav-cta,button:not(.identity-card),.vault-links a,.project-lin
 body :is(.button,.nav-cta,button:not(.identity-card),.vault-links a,.project-links a,.case-link,.text-link,.social-links a,.board-label,.contact-mascot>span,.back-top):focus-visible{outline:3px solid #a4dfff!important;outline-offset:4px}
 body :is(.button,.nav-cta,button:not(.identity-card),.vault-links a,.project-links a,.case-link,.text-link,.social-links a,.board-label,.contact-mascot>span,.back-top):active{filter:brightness(.96);box-shadow:inset 0 2px 8px #0005,0 0 18px #168dff33}
 body :is(.button,.nav-cta,.vault-links a,.project-links a,.case-link,.board-label,.contact-mascot>span) :is(span,strong,b){color:#fff!important;-webkit-text-fill-color:#fff!important}
-body .button-white{background:radial-gradient(circle at 0% 100%,#78d9ff24,transparent 60%) padding-box,linear-gradient(135deg,#18568b,#12315b 62%,#101c32) padding-box,conic-gradient(from var(--action-angle),#f1fbff,#86d4ff 22%,#246dbb 48%,#379cff 72%,#f1fbff) border-box!important}
+body .button.button-white{background:radial-gradient(circle at 0% 100%,#78d9ff24,transparent 60%) padding-box,linear-gradient(135deg,#18568b,#12315b 62%,#101c32) padding-box,conic-gradient(from var(--action-angle),#f1fbff,#86d4ff 22%,#246dbb 48%,#379cff 72%,#f1fbff) border-box!important}
 body .button{padding:15px 23px!important;font-size:14px!important;line-height:1.45;min-height:54px}
 body .nav-cta{padding:12px 18px!important;font-size:13px!important;display:inline-flex;align-items:center;justify-content:center;gap:14px}
 body :is(.vault-links a,.project-links a,.case-link,.text-link,.social-links a){padding:10px 13px;font-size:12px!important;line-height:1.4;display:inline-flex;align-items:center;justify-content:center;gap:9px;white-space:normal}
@@ -39,3 +39,5 @@ body button:disabled{opacity:.55;cursor:not-allowed;animation:none!important;fil
 @media(prefers-reduced-motion:reduce){body :is(.button,.nav-cta,button:not(.identity-card),.vault-links a,.project-links a,.case-link,.text-link,.social-links a,.board-label,.contact-mascot>span,.back-top){animation:none!important;transition:none!important}}
 
 @media(prefers-reduced-motion:reduce){body :is(.button,.nav-cta,.vault-links a,.project-links a,.case-link,.board-label,.contact-mascot>span):is(:hover,:active){transform:none!important}}
+
+body .board-label{white-space:nowrap;font-size:13px!important;padding:12px 10px!important}
