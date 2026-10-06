@@ -14,7 +14,7 @@ export default function IdentityCard({paused=false}:{paused?:boolean}){
    if(m.dragging){m.x=m.tx;m.y=m.ty;m.vx=0;m.vy=0}
    else if(reduced.matches||paused){m.x=0;m.y=0;m.vx=0;m.vy=0}
    else{m.vx+=(-m.x*105-m.vx*13)*dt;m.vy+=(-m.y*105-m.vy*13)*dt;m.x+=m.vx*dt;m.y+=m.vy*dt}
-   const baseLength=innerWidth<=800?96:190;const angle=Math.atan2(m.x,baseLength+m.y)*180/Math.PI;
+   const baseLength=parseFloat(getComputedStyle(el).getPropertyValue('--strap-base'))||(innerWidth<=800?68:120);const angle=Math.atan2(m.x,baseLength+m.y)*180/Math.PI;
    el.style.setProperty('--card-x',`${m.x}px`);el.style.setProperty('--card-y',`${m.y}px`);
    el.style.setProperty('--card-roll',`${-angle*.38}deg`);el.style.setProperty('--strap-angle',`${-angle}deg`);
    el.style.setProperty('--strap-length',`${Math.hypot(m.x,baseLength+m.y)}px`);

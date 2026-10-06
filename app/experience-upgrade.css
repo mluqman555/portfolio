@@ -157,3 +157,146 @@ body main .contact :is(.field-help,.form-note,.contact-copy>p){color:#e9f5ff!imp
  body main .architecture-layers{grid-template-columns:minmax(0,1fr)}
  body main .contact .form-grid{grid-template-columns:minmax(0,1fr)}
 }
+
+/* Screen-sized introduction and cinematic single-row collections. */
+body .site-header.portfolio-navigation{height:76px}
+body main .section{padding-top:clamp(36px,6svh,64px);padding-bottom:clamp(36px,6svh,64px)}
+body main .section>.section-label{margin-bottom:22px}
+body main .section>.section-label>span:nth-child(2){font-size:clamp(23px,2.7vw,37px)}
+body main .section .section-heading{margin-bottom:24px}
+body main .cinematic-hero .hero-sequence-viewport{min-height:var(--hero-room,calc(100svh - 76px))!important;height:auto!important;max-height:none;padding:65px 5.2% 55px;gap:20px;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr)}
+body main .hero-sequence-topline{top:20px;font-size:clamp(16px,2.4svh,24px)}
+body main .hero-sequence-identity h1{font-size:clamp(33px,5.1svh,48px)}
+body main .hero-sequence-identity .status{font-size:10px}
+body main .hero-sequence-headline{font-size:clamp(25px,3.9svh,35px);margin:14px 0;line-height:1.12}
+body main .hero-sequence-description{font-size:clamp(14px,1.9svh,17px);line-height:1.55}
+body main .hero-capabilities{margin:16px 0 0;gap:5px;grid-template-columns:repeat(3,minmax(0,1fr))}
+body main .hero-capabilities li{font-size:clamp(11px,1.45svh,13px);padding:6px 8px;line-height:1.35}
+body main .hero-sequence-actions{margin-top:18px;gap:12px}
+body main .hero-sequence-actions .button{font-size:11px;min-height:44px;padding:12px 16px}
+body main .hero-sequence-baseline{bottom:17px;font-size:9px!important}
+body main .identity-stage{--strap-base:120px;height:470px;margin:0}
+body main .identity-strap{height:var(--strap-length,120px)}
+body main .identity-card{top:var(--strap-base);width:260px;height:326px;padding:12px}
+body main .identity-inner img{height:156px}
+body main .identity-info strong{font-size:19px}
+body main .identity-info>span{font-size:13px}
+body main .identity-info .identity-location{font-size:10px}
+body main .identity-card-header{padding:10px 10px 8px}
+body main .identity-info{padding:10px 10px 6px}
+body main .identity-orbit{width:320px;height:320px;top:100px}
+body main .identity-hint{font-size:9px}
+body main .expanded-universe-stage{height:clamp(410px,65svh,600px)}
+body main .expanded-universe-stage .planet{font-size:11px;padding:7px 9px}
+body main .universe-catalog{overflow:hidden;padding:20px;background:radial-gradient(ellipse at 90% 0%,#405bc24a,transparent 65%),linear-gradient(120deg,#0f1d38,#1c1a35);border-radius:12px}
+body main .universe-catalog-title{font-size:clamp(16px,1.8vw,22px);margin:0 0 15px}
+.capability-slide-controls,.project-rail-controls{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:16px;color:#cdeaff}
+.capability-slide-controls>.mono,.project-rail-controls>.mono{font-size:11px;line-height:1.5}
+.capability-slide-controls>div,.project-rail-controls>div{display:flex;gap:8px}
+body main :is(.capability-slide-controls,.project-rail-controls) button{min-width:44px;min-height:44px;border-radius:7px;font-size:22px}
+body main .universe-catalog-grid.capability-slides{display:grid;grid-auto-flow:column;grid-auto-columns:100%;grid-template-columns:none;gap:0;padding:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#92baff #111d31;perspective:1000px}
+body main .capability-slides .capability-group{scroll-snap-align:start;min-width:0;width:100%;box-sizing:border-box;padding:28px;background:radial-gradient(ellipse at 90% 20%,color-mix(in srgb,var(--group-color) 22%,transparent),transparent 60%),linear-gradient(145deg,#142947,#161c2e);border-radius:10px;position:relative;overflow:hidden}
+body main .capability-slides .capability-group:before{content:'';height:2px;width:65%;background:linear-gradient(90deg,transparent,var(--group-color),transparent);position:absolute;top:0;left:0;animation:capability-scan 7s linear infinite}
+@keyframes capability-scan{from{transform:translateX(-100%)}to{transform:translateX(180%)}}
+body main .capability-slides .capability-group h3{font-size:clamp(23px,2.8vw,34px);margin:0 0 22px}
+body main .capability-slides .capability-group>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+body main .capability-slides button{min-height:46px;font-size:14px;padding:11px;white-space:normal;text-align:left}
+body main .project-vault>.section-label .work-title{font-size:clamp(37px,5vw,64px)}
+body main .project-vault .section-heading .work-subtitle{font-size:clamp(24px,3vw,33px)}
+body main .project-vault .section-heading p{font-size:15px}
+body main .project-vault .vault-grid.project-rail{--project-width:clamp(260px,26vw,320px);display:grid;grid-auto-flow:column;grid-auto-columns:var(--project-width);grid-template-columns:none;max-width:100%;gap:20px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-left:16px;padding:24px 16px 30px;padding-right:calc(100% - var(--project-width));perspective:1400px;scrollbar-width:thin;scrollbar-color:#7195d3 #0b1120}
+body main .project-rail .vault-slot{scroll-snap-align:start;margin:0!important;grid-column:auto!important;transform:rotateY(var(--rail-turn,0deg)) translateZ(var(--rail-depth,0px));transform-origin:center;transition:transform .2s;min-width:0}
+body main .project-rail .vault-media{height:155px}
+body main .project-rail .vault-content{padding:20px}
+body main .project-rail .vault-card .vault-content h3{font-size:25px;line-height:1.15}
+body main .project-rail .vault-description{font-size:15px;line-height:1.55}
+body main .project-rail .vault-card{height:100%;min-height:0}
+body main .contact-form :is(input,select,textarea){padding:13px 14px}
+@media(min-width:801px) and (max-height:740px){
+ body main .cinematic-hero .hero-sequence-viewport{padding-top:54px;padding-bottom:43px}
+ body main .hero-sequence-identity h1{font-size:34px}
+ body main .hero-sequence-headline{font-size:27px;margin:10px 0}
+ body main .hero-sequence-description{font-size:14px;line-height:1.4}
+ body main .hero-capabilities{gap:4px;margin-top:12px}
+ body main .hero-capabilities li{font-size:11px;padding:5px 6px}
+ body main .identity-stage{--strap-base:90px;height:402px}
+ body main .identity-card{width:238px;height:288px}
+ body main .identity-inner img{height:126px}
+ body main .hero-sequence-actions{margin-top:13px}
+}
+@media(max-width:800px){
+ body .site-header.portfolio-navigation{height:64px;padding-left:18px;padding-right:18px}
+ body .site-header.portfolio-navigation .brand{font-size:32px}
+ body .site-header.portfolio-navigation .brand-name{font-size:9px}
+ body .site-header.portfolio-navigation .nav{top:64px}
+ body main .section{padding:36px 18px}
+ body main .section .section-heading h2,body main .universe-heading h2{font-size:clamp(27px,5vw,37px)}
+ body main .section :is(.section-heading p,.universe-heading p,.about-copy p){font-size:15px;line-height:1.6}
+ body main .cinematic-hero .hero-sequence-viewport{display:grid;grid-template-columns:minmax(0,1fr) 140px;align-items:start;min-height:var(--hero-room,calc(100svh - 64px))!important;padding:18px 18px 20px;gap:12px 14px}
+ body main .hero-sequence-topline{grid-column:1/-1;grid-row:1;inset:auto!important;font-size:16px;margin:0}
+ body main .hero-sequence-content{display:contents}
+ body main .hero-sequence-identity{grid-column:1/-1;grid-row:2}
+ body main .hero-sequence-identity h1{font-size:clamp(27px,5.5vw,38px);margin-top:9px}
+ body main .hero-sequence-identity .status{font-size:9px}
+ body main .hero-sequence-headline{grid-column:1;grid-row:3;font-size:clamp(20px,4vw,28px);margin:8px 0}
+ body main .hero-sequence-description{grid-column:1;grid-row:4;font-size:14px;line-height:1.45}
+ body main .identity-stage{--strap-base:68px;grid-column:2;grid-row:3/5;width:140px;height:266px;align-self:center;margin:0}
+ body main .identity-card{top:68px;width:126px;height:186px;padding:6px;border-radius:12px;transform:translateX(-50%) translate3d(var(--card-x),var(--card-y),0) rotateZ(var(--card-roll))}
+ body main .identity-inner{border-radius:8px}
+ body main .identity-inner img{height:87px;width:calc(100% - 10px);margin:0 5px;border-radius:5px}
+ body main .identity-card-header{font-size:4px;padding:7px 5px 5px;letter-spacing:.4px}
+ body main .identity-info{padding:6px 5px 4px;gap:3px}
+ body main .identity-info strong{font-size:11px;letter-spacing:-.2px}
+ body main .identity-info>span{font-size:8px}
+ body main .identity-info .identity-location{font-size:7px;padding-top:2px;letter-spacing:0}
+ body main .identity-card-footer{font-size:4px;margin:1px 5px 0;padding-top:4px;letter-spacing:.4px}
+ body main .identity-card-footer>span:last-child{font-size:9px}
+ body main .identity-strap{width:22px;left:calc(50% - 11px)}
+ body main .identity-strap span{font-size:6px;letter-spacing:.5px;margin:8px auto;max-height:50px}
+ body main .identity-anchor{width:22px;left:calc(50% - 11px)}
+ body main .identity-clip{width:31px;height:27px;left:calc(50% - 15.5px);top:-23px}
+ body main .identity-clip:before{inset:3px 4px 6px;border-width:1px}
+ body main .identity-slot{width:36px;left:calc(50% - 18px);height:5px;top:3px}
+ body main .identity-orbit{width:140px;height:140px;top:80px}
+ body main .identity-hint{font-size:6px;letter-spacing:.5px}
+ body main .hero-capabilities{grid-column:1/-1;grid-row:5;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:2px 0}
+ body main .hero-capabilities li{font-size:11px;padding:6px;line-height:1.35}
+ body main .hero-sequence-actions{grid-column:1/-1;grid-row:6;display:flex;margin:4px 0;gap:8px}
+ body main .hero-sequence-actions .button{min-height:42px;font-size:10px;padding:11px 9px;flex:1 1 0}
+ body main .hero-sequence-baseline{grid-column:1/-1;grid-row:7;inset:auto;margin:6px 0 0;font-size:8px!important;gap:8px}
+ body main .expanded-universe-stage{height:auto;padding-top:230px}
+ body main .expanded-universe-stage>canvas{height:215px}
+ body main .expanded-universe-stage .universe-centre{top:108px}
+ body main .expanded-universe-stage .universe-centre strong{font-size:30px}
+ body main .expanded-universe-stage .planet{font-size:10px;padding:7px 5px;min-height:38px}
+ body main .universe-catalog{padding:15px}
+ body main .capability-slides .capability-group{padding:20px 15px}
+ body main .capability-slides .capability-group>div{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ body main .capability-slides button{font-size:12px;min-height:44px;padding:9px 7px}
+ body main .project-vault .vault-grid.project-rail{--project-width:min(78vw,290px);grid-template-columns:none;grid-auto-columns:var(--project-width);gap:15px}
+ body main .project-rail .vault-media{height:130px}
+ body main .project-rail .vault-content{padding:17px}
+ body main .project-rail .vault-card .vault-content h3{font-size:23px}
+ body main .project-rail .vault-description{font-size:14px}
+ body main .architecture-anchor{padding:22px}
+ body main .architecture-anchor strong{font-size:28px;margin:15px 0 10px}
+ body main .architecture-node h3{font-size:23px}
+ body main .architecture-node p{font-size:14px}
+ body main .forge-intro h2{font-size:28px!important}
+ body main .forge-stage h3{font-size:35px!important}
+ body main .forge-stage p{font-size:16px}
+ body main .contact .contact-form{padding:18px 15px}
+ body main .contact-form .form-field-title{font-size:14px}
+ .contact-board{transform:scale(.72);transform-origin:bottom right;right:8px;bottom:8px}
+}
+@media(max-width:380px){
+ body main .cinematic-hero .hero-sequence-viewport{grid-template-columns:minmax(0,1fr) 118px;gap:10px;padding-left:14px;padding-right:14px}
+ body main .identity-stage{width:118px}
+ body main .identity-card{width:112px}
+ body main .hero-capabilities{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body main .capability-slides .capability-group>div{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){
+ body main .capability-slides .capability-group:before{animation:none}
+ body main .project-rail .vault-slot{transform:none!important;transition:none}
+}
