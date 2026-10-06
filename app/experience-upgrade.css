@@ -19,7 +19,7 @@ body main .cinematic-hero .hero-sequence-viewport{grid-template-columns:minmax(0
 body main .hero-sequence-topline{font-size:clamp(22px,2.5vw,32px);line-height:1.2;color:var(--identity-blue);-webkit-text-fill-color:var(--identity-blue);text-shadow:0 1px #0a2d63,0 0 14px #318cff22;letter-spacing:.035em}
 body main .hero-sequence-identity h1{background:linear-gradient(115deg,var(--identity-cyan),var(--identity-blue) 50%,#5999ff)!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:var(--identity-blue)!important;text-shadow:none;font-size:clamp(38px,4.1vw,62px)}
 body main .hero-sequence-headline{font-size:clamp(29px,3vw,40px);margin:22px 0;line-height:1.15}
-body main .hero-sequence-headline em{font-style:normal;color:var(--text-primary);-webkit-text-fill-color:var(--text-primary);background:none!important}
+body main .hero-sequence-headline em{font-style:normal;color:var(--text-primary)!important;-webkit-text-fill-color:var(--text-primary)!important;background:none!important;background-clip:border-box!important}
 body main .hero-sequence-description{font-size:18px;line-height:1.7;font-weight:700;max-width:620px;text-shadow:none}
 .hero-capabilities{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 body main .hero-capabilities li{font-size:14px;font-weight:750;line-height:1.4;padding:9px 10px 9px 14px;border-left:2px solid #318cff77;background:linear-gradient(90deg,#318cff12,transparent);color:var(--metal-bright)}
